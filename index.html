@@ -4,101 +4,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thank You Teachers</title>
+
     <style>
-        /* ANIMATED BACKGROUND */
+        /* ANIMATED GRADIENT BACKGROUND */
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            color: #333;
-            text-align: center;
+            font-family: "Arial", sans-serif;
+            color: #222;
             overflow-x: hidden;
-            background: linear-gradient(120deg, #b9e5ff, #d7ffef, #ffd6f6);
+            background: linear-gradient(120deg, #b9e5ff, #ffe4f0, #d7ffef, #fff3c4);
             background-size: 400% 400%;
-            animation: gradientMove 15s ease infinite;
+            animation: gradientMove 18s ease infinite;
         }
-
         @keyframes gradientMove {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* FLOATING CIRCLES DECORATION */
+        /* FLOATING DECORATION CIRCLES */
         .circle {
             position: fixed;
             border-radius: 50%;
             opacity: 0.25;
             background: white;
-            animation: floatUp 12s linear infinite;
+            animation: floatUp 14s linear infinite;
             z-index: -1;
         }
-
         @keyframes floatUp {
             0% { transform: translateY(100vh) scale(1); }
-            100% { transform: translateY(-20vh) scale(1.6); }
-        }
-
-        h1 {
-            color: #236f31;
-            font-size: 42px;
-            margin-top: 10px;
-            animation: sparkle 2s infinite alternate;
+            100% { transform: translateY(-20vh) scale(1.8); }
         }
 
         /* TITLE GLOW */
-        @keyframes sparkle {
-            0% { text-shadow: 0 0 4px #b2ffb8; }
-            100% { text-shadow: 0 0 12px #7eff90; }
+        h1 {
+            font-size: 45px;
+            margin-top: 10px;
+            color: #125f2f;
+            animation: glow 2s infinite alternate;
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 6px #b2ffb8; }
+            100% { text-shadow: 0 0 16px #7eff90; }
         }
 
-        p {
-            font-size: 18px;
+        /* TYPEWRITER TEXT */
+        #typed-text {
+            font-size: 20px;
+            color: #333;
+            height: 28px;
             margin-bottom: 30px;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid #333;
+            width: 0;
+            animation: typing 3.5s steps(40, end) forwards, blink 0.75s step-end infinite;
         }
+        @keyframes typing { from { width: 0; } to { width: 100%; } }
+        @keyframes blink { 50% { border-color: transparent; } }
 
+        /* TEACHER CARDS */
         .teacher-list {
             list-style: none;
             padding: 0;
-            max-width: 700px;
+            max-width: 750px;
             margin: auto;
         }
-
         .teacher-list li {
-            background-color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
             margin: 15px 0;
-            padding: 18px 22px;
             border-radius: 14px;
-            backdrop-filter: blur(6px);
-            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
             font-size: 18px;
-            text-align: left;
-            transition: transform 0.25s, box-shadow 0.3s;
+            backdrop-filter: blur(7px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.13);
+            transition: 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
         }
-
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
         .teacher-list li:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.18);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 12px 26px rgba(0,0,0,0.2);
         }
 
-        .subject {
-            font-weight: bold;
-            color: #1f5fbf;
+        .subject { font-weight: bold; color: #1f5fbf; }
+        .name { font-weight: bold; }
+
+        /* CONFETTI BUTTON */
+        #confetti-btn {
+            margin: 25px 0;
+            padding: 12px 25px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+        #confetti-btn:hover {
+            background: #3a9440;
+            transform: scale(1.05);
         }
 
-        .name {
-            font-weight: bold;
-            color: #333;
+        /* CURSOR SPARKLE EFFECT */
+        .sparkle {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            background: white;
+            opacity: 0.8;
+            animation: sparkleFade 0.7s forwards;
         }
-
-        .thank-you {
-            font-style: italic;
-            color: #555;
+        @keyframes sparkleFade {
+            to { opacity: 0; transform: scale(2); }
         }
 
         footer {
             margin-top: 40px;
-            font-size: 14px;
             color: #444;
         }
     </style>
@@ -106,89 +136,85 @@
 
 <body>
 
-    <!-- FLOATING CIRCLES (automatically placed) -->
+    <!-- FLOATING BACKGROUND DECOR -->
     <script>
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 18; i++) {
             const circle = document.createElement("div");
-            const size = Math.random() * 80 + 40; 
+            const size = Math.random() * 70 + 40;
             circle.classList.add("circle");
             circle.style.width = size + "px";
             circle.style.height = size + "px";
             circle.style.left = Math.random() * 100 + "vw";
-            circle.style.animationDuration = (10 + Math.random() * 10) + "s";
+            circle.style.animationDuration = (12 + Math.random() * 10) + "s";
             document.body.appendChild(circle);
         }
     </script>
 
     <h1>Thank You, Teachers! 🍎</h1>
-    <p>Thank you for supporting me throughout Year 10.</p>
 
+    <!-- TYPEWRITER INTRO -->
+    <div id="typed-text">Thank you for making Year 10 unforgettable.</div>
+
+    <!-- CONFETTI BUTTON -->
+    <button id="confetti-btn" onclick="startConfetti()">🎉 Celebrate!</button>
+
+    <!-- TEACHER LIST -->
     <ul class="teacher-list">
-
-        <li>
-            <span class="subject">Year Coordinator:</span>
-            <span class="name">HYDE, Jodie</span> — 
-            <span class="thank-you">Thank you for guiding and supporting us this year.</span>
-        </li>
-
-        <li>
-            <span class="subject">History:</span>
-            <span class="name">MASKEY, Jan</span> — 
-            <span class="thank-you">Thank you for making history come alive.</span>
-        </li>
-
-        <li>
-            <span class="subject">Science:</span>
-            <span class="name">RYAN, Adam</span> — 
-            <span class="thank-you">Your classes made science exciting and fun.</span>
-        </li>
-
-        <li>
-            <span class="subject">Accounting:</span>
-            <span class="name">FANNIN, Rafael</span> — 
-            <span class="thank-you">Thank you for helping me understand accounting clearly.</span>
-        </li>
-
-        <li>
-            <span class="subject">English:</span>
-            <span class="name">PAETZHOLDT, Andrew</span> — 
-            <span class="thank-you">Thank you for helping me improve my writing.</span>
-        </li>
-
-        <li>
-            <span class="subject">Health & PE:</span>
-            <span class="name">BALFE, Matthew</span> — 
-            <span class="thank-you">Thank you for motivating us in PE.</span>
-        </li>
-
-        <li>
-            <span class="subject">Economics & Business:</span>
-            <span class="name">HOWE, Janelle</span> — 
-            <span class="thank-you">Thank you for teaching us how the world works.</span>
-        </li>
-
-        <li>
-            <span class="subject">Math:</span>
-            <span class="name">SEN, Uma</span> — 
-            <span class="thank-you">Thank you for your patience and explanations.</span>
-        </li>
-
-        <li>
-            <span class="subject">Connect & Civics & Citizenship:</span>
-            <span class="name">GANENDRAN, Malar</span> — 
-            <span class="thank-you">Thank you for teaching us about society and responsibility.</span>
-        </li>
-
-        <li>
-            <span class="subject">Design & Technology:</span>
-            <span class="name">ALLEN, Ellie</span> — 
-            <span class="thank-you">Thank you for making design and tech creative and exciting.</span>
-        </li>
-
+        <li><span class="subject">👩‍🏫 Year Coordinator:</span> <span class="name">HYDE, Jodie</span> — Thank you for guiding and supporting us.</li>
+        <li><span class="subject">📜 History:</span> <span class="name">MASKEY, Jan</span> — Thank you for bringing history to life.</li>
+        <li><span class="subject">🧪 Science:</span> <span class="name">RYAN, Adam</span> — Thank you for making science exciting.</li>
+        <li><span class="subject">📊 Accounting:</span> <span class="name">FANNIN, Rafael</span> — Thank you for helping me understand accounting.</li>
+        <li><span class="subject">✍️ English:</span> <span class="name">PAETZHOLDT, Andrew</span> — Thank you for improving my writing.</li>
+        <li><span class="subject">🏃 Health & PE:</span> <span class="name">BALFE, Matthew</span> — Thank you for motivating us.</li>
+        <li><span class="subject">💼 Economics & Business:</span> <span class="name">HOWE, Janelle</span> — Thank you for teaching us about the world.</li>
+        <li><span class="subject">📐 Math:</span> <span class="name">SEN, Uma</span> — Thank you for your patience.</li>
+        <li><span class="subject">🌍 Civics & Connect:</span> <span class="name">GANENDRAN, Malar</span> — Thank you for guiding our understanding of society.</li>
+        <li><span class="subject">🛠️ Design & Tech:</span> <span class="name">ALLEN, Ellie</span> — Thank you for making tech creative and fun.</li>
     </ul>
 
-    <footer>
-        Created with gratitude — Year 10, 2025 ❤️
-    </footer>
+    <footer>Created with gratitude — Year 10, 2025 ❤️</footer>
+
+    <!-- CONFETTI SCRIPT -->
+    <script>
+        function startConfetti() {
+            for (let i = 0; i < 150; i++) {
+                const conf = document.createElement("div");
+                conf.style.position = "fixed";
+                conf.style.width = "8px";
+                conf.style.height = "8px";
+                conf.style.background = `hsl(${Math.random() * 360}, 90%, 60%)`;
+                conf.style.top = "-10px";
+                conf.style.left = Math.random() * 100 + "vw";
+                conf.style.opacity = "0.9";
+                conf.style.transform = `rotate(${Math.random() * 360}deg)`;
+                conf.style.animation = `fall ${2 + Math.random() * 3}s linear`;
+                conf.style.borderRadius = "2px";
+                document.body.appendChild(conf);
+
+                conf.addEventListener("animationend", () => conf.remove());
+            }
+        }
+
+        /* Confetti falling animation */
+        const style = document.createElement("style");
+        style.innerHTML = `
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(720deg); opacity: 0.7; }
+        }
+        `;
+        document.head.appendChild(style);
+
+        /* SPARKLY CURSOR EFFECT */
+        document.addEventListener("mousemove", e => {
+            const s = document.createElement("div");
+            s.classList.add("sparkle");
+            s.style.left = e.pageX + "px";
+            s.style.top = e.pageY + "px";
+            document.body.appendChild(s);
+
+            setTimeout(() => s.remove(), 700);
+        });
+    </script>
+
 </body>
 </html>
