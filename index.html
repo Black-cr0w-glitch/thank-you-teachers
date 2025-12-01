@@ -13,8 +13,8 @@
     margin: 0;
     padding: 20px;
     font-family: "Arial", sans-serif;
-    color: #3B3B98; /* Deep Indigo for text */
-    background: #EDE6F1; /* Pale Lilac background */
+    background: #90CAF9; /* Baby Blue */
+    color: #FFFFFF; /* White text */
     min-height: 100vh;
   }
 
@@ -23,23 +23,19 @@
     font-family: 'Poppins', sans-serif;
     font-size: 48px;
     margin-top: 10px;
-    color: #C8A2C8; /* Soft Lavender */
+    color: #1A237E; /* Navy Blue */
+    text-shadow: 0 0 8px #F0F8FF, 0 0 16px #F0F8FF;
     animation: glow 3s infinite alternate;
     user-select: none;
-    text-shadow:
-      0 0 10px #C8A2C8,
-      0 0 25px #C8A2C8,
-      0 0 50px #A3CEF1; /* subtle Sky Blue glow */
   }
   @keyframes glow {
-    0% { text-shadow: 0 0 10px #C8A2C8, 0 0 25px #C8A2C8, 0 0 50px #A3CEF1; }
-    100% { text-shadow: 0 0 20px #C8A2C8, 0 0 40px #C8A2C8, 0 0 70px #A3CEF1; }
+    0% { text-shadow: 0 0 8px #F0F8FF, 0 0 16px #F0F8FF; }
+    100% { text-shadow: 0 0 16px #F0F8FF, 0 0 32px #F0F8FF; }
   }
 
   /* TYPEWRITER TEXT */
   #typed-text {
     font-size: 20px;
-    color: #3B3B98; /* Deep Indigo */
     margin-bottom: 30px;
     white-space: nowrap;
     overflow: hidden;
@@ -56,7 +52,7 @@
     top: 0;
     width: 2px;
     height: 100%;
-    background: #3B3B98;
+    background: #FFFFFF;
     animation: blink 1s step-start infinite;
   }
   #typed-text.finished::after { animation: none; opacity: 0; }
@@ -72,13 +68,14 @@
     margin: 20px auto 60px auto;
   }
   .teacher-list li {
-    background: #F5F8FF; /* bright bluish-white */
+    background: #F0F8FF; /* Glowing White */
     padding: 22px 26px;
     margin: 15px 0;
     border-radius: 16px;
     font-size: 18px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 0 12px #A3CEF1; /* subtle Sky Blue glow */
-    border: 2px solid #A3CEF1;
+    color: #1A237E; /* Navy Blue for text inside card */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 0 12px #F0F8FF;
+    border: 2px solid #1A237E;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     opacity: 0;
     transform: translateY(20px);
@@ -98,35 +95,34 @@
   @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
   .teacher-list li:hover {
     transform: translateY(-6px) scale(1.03);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15), 0 0 25px #7D8CC4; /* Periwinkle Blue glow */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15), 0 0 25px #F0F8FF;
   }
 
-  .subject { font-weight: 700; color: #3B3B98; } /* Deep Indigo */
+  .subject { font-weight: 700; color: #1A237E; }
   .name { font-weight: 700; }
 
   /* CONFETTI BUTTON */
   #confetti-btn {
     margin: 25px 0;
     padding: 12px 28px;
-    background: #7D8CC4; /* Periwinkle Blue */
-    color: white;
+    background: #F0F8FF; /* Glowing White */
+    color: #1A237E; /* Navy Blue text */
     border: none;
     font-size: 18px;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.25s ease;
+    transition: background-color 0.3s ease, transform 0.25s ease, box-shadow 0.25s ease;
     user-select: none;
-    box-shadow: 0 3px 8px rgba(125, 140, 196,0.6);
+    box-shadow: 0 3px 10px rgba(240,248,255,0.6);
   }
   #confetti-btn:hover {
-    background: #5C6AA0;
     transform: scale(1.05);
-    box-shadow: 0 6px 14px rgba(92,106,160,0.8);
+    box-shadow: 0 6px 18px rgba(240,248,255,0.9);
   }
 
   footer {
     margin-top: 40px;
-    color: #3B3B98;
+    color: #FFFFFF;
     text-align: center;
     font-style: italic;
     user-select: none;
@@ -186,3 +182,4 @@
 
 </body>
 </html>
+
