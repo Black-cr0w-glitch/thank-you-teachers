@@ -26,29 +26,41 @@
     100% { background-position: 0% 50%; }
   }
 
-  /* FLOATING CIRCLES: combine vertical + horizontal + color */
+  /* FLOATING CIRCLES */
   .circle {
     position: fixed;
     border-radius: 50%;
     opacity: 0.25;
-    background-color: hsl(0, 80%, 70%);
-    animation:
-      floatMove linear infinite,
-      colorShift 20s linear infinite;
+    background-color: hsl(120, 80%, 75%);
+    animation-name: floatUpSide, colorShift;
+    animation-timing-function: linear, linear;
+    animation-iteration-count: infinite, infinite;
+    animation-fill-mode: none, none;
     z-index: -1;
     will-change: transform, background-color;
   }
-  @keyframes floatMove {
-    0% { transform: translate(0, 100vh) scale(1); }
-    50% { transform: translate(30px, 40vh) scale(1.4); }
-    100% { transform: translate(0, -20vh) scale(1.8); }
+  /* Float up from bottom (100vh) to above top (-20vh)
+     and horizontally drift left-right smoothly */
+  @keyframes floatUpSide {
+    0% {
+      transform: translateX(0px) translateY(100vh) scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: translateX(20px) translateY(50vh) scale(1.3);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateX(0px) translateY(-20vh) scale(1.6);
+      opacity: 0;
+    }
   }
   @keyframes colorShift {
-    0% { background-color: hsl(0, 80%, 70%); }
-    25% { background-color: hsl(90, 80%, 70%); }
-    50% { background-color: hsl(180, 80%, 70%); }
-    75% { background-color: hsl(270, 80%, 70%); }
-    100% { background-color: hsl(360, 80%, 70%); }
+    0% { background-color: hsl(120, 80%, 75%); }
+    25% { background-color: hsl(180, 80%, 75%); }
+    50% { background-color: hsl(240, 80%, 75%); }
+    75% { background-color: hsl(300, 80%, 75%); }
+    100% { background-color: hsl(360, 80%, 75%); }
   }
 
   /* HEADING */
@@ -79,20 +91,20 @@
     }
   }
 
-  /* TYPEWRITER TEXT WITH SEPARATE CURSOR */
+  /* TYPEWRITER TEXT WITH BLINKING CURSOR */
   #typed-text {
     font-size: 20px;
     color: #333;
     margin-bottom: 30px;
     white-space: nowrap;
     overflow: hidden;
-    width: fit-content;
-    max-width: 100%;
+    width: 0;
     user-select: none;
     position: relative;
-    padding-right: 12px; /* for cursor */
+    padding-right: 12px; /* space for cursor */
     animation: typing 3.5s steps(40, end) forwards;
   }
+  /* blinking cursor */
   #typed-text::after {
     content: '';
     position: absolute;
@@ -101,7 +113,12 @@
     width: 2px;
     height: 100%;
     background: #333;
-    animation: blink 1s infinite step-start;
+    animation: blink 1s step-start infinite;
+  }
+  /* Hide cursor after typing animation finishes */
+  #typed-text.finished::after {
+    animation: none;
+    opacity: 0;
   }
   @keyframes typing {
     from { width: 0; }
@@ -112,7 +129,7 @@
     51%, 100% { opacity: 0; }
   }
 
-  /* TEACHER CARDS with subtle glow + shadow on normal + stronger on hover */
+  /* TEACHER CARDS with stronger subtle shadow + glow */
   .teacher-list {
     list-style: none;
     padding: 0;
@@ -120,30 +137,31 @@
     margin: 20px auto 60px auto;
   }
   .teacher-list li {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     padding: 20px;
     margin: 15px 0;
     border-radius: 14px;
     font-size: 18px;
-    backdrop-filter: blur(7px);
+    backdrop-filter: blur(8px);
     box-shadow:
-      0 4px 12px rgba(0, 0, 0, 0.1),
-      0 0 10px rgba(126, 255, 144, 0.15); /* subtle glow */
+      0 6px 16px rgba(0, 0, 0, 0.12),
+      0 0 12px rgba(126, 255, 144, 0.3); /* subtle green glow */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 1s forwards;
   }
-  .teacher-list li:nth-child(1) { animation-delay: 0.2s; }
-  .teacher-list li:nth-child(2) { animation-delay: 0.4s; }
-  .teacher-list li:nth-child(3) { animation-delay: 0.6s; }
-  .teacher-list li:nth-child(4) { animation-delay: 0.8s; }
-  .teacher-list li:nth-child(5) { animation-delay: 1s; }
-  .teacher-list li:nth-child(6) { animation-delay: 1.2s; }
-  .teacher-list li:nth-child(7) { animation-delay: 1.4s; }
-  .teacher-list li:nth-child(8) { animation-delay: 1.6s; }
-  .teacher-list li:nth-child(9) { animation-delay: 1.8s; }
-  .teacher-list li:nth-child(10) { animation-delay: 2s; }
+  /* stagger fade in */
+  .teacher-list li:nth-child(1) { animation-delay: 0.15s; }
+  .teacher-list li:nth-child(2) { animation-delay: 0.35s; }
+  .teacher-list li:nth-child(3) { animation-delay: 0.55s; }
+  .teacher-list li:nth-child(4) { animation-delay: 0.75s; }
+  .teacher-list li:nth-child(5) { animation-delay: 0.95s; }
+  .teacher-list li:nth-child(6) { animation-delay: 1.15s; }
+  .teacher-list li:nth-child(7) { animation-delay: 1.35s; }
+  .teacher-list li:nth-child(8) { animation-delay: 1.55s; }
+  .teacher-list li:nth-child(9) { animation-delay: 1.75s; }
+  .teacher-list li:nth-child(10) { animation-delay: 1.95s; }
 
   @keyframes fadeInUp {
     to { opacity: 1; transform: translateY(0); }
@@ -152,7 +170,7 @@
     transform: translateY(-6px) scale(1.03);
     box-shadow:
       0 15px 30px rgba(0, 0, 0, 0.25),
-      0 0 15px rgba(126, 255, 144, 0.6);
+      0 0 20px rgba(126, 255, 144, 0.7);
   }
 
   .subject {
@@ -220,11 +238,11 @@
       circle.style.height = size + "px";
       circle.style.left = Math.random() * 100 + "vw";
 
-      // Randomize animation duration for floatMove (between 15-25s)
+      // Animation duration random for floatUpSide (15-25s)
       const floatDuration = 15 + Math.random() * 10;
-      circle.style.animationDuration = `${floatDuration}s, 20s`;
 
-      // Slight random animation-delay for natural effect
+      // Animate floatUpSide and colorShift with delay to stagger
+      circle.style.animationDuration = `${floatDuration}s, 20s`;
       circle.style.animationDelay = `${Math.random() * floatDuration}s, 0s`;
 
       document.body.appendChild(circle);
@@ -281,6 +299,12 @@
     `;
     document.head.appendChild(style);
 
+    // Remove blinking cursor after typing animation completes
+    const typedText = document.getElementById('typed-text');
+    typedText.addEventListener('animationend', () => {
+      typedText.classList.add('finished');
+    });
+
     document.addEventListener("mousemove", e => {
       const s = document.createElement("div");
       s.classList.add("sparkle");
@@ -292,5 +316,3 @@
   </script>
 </body>
 </html>
-
-
